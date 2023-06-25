@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Button } from "reactstrap";
+import { AccountContext } from "../../Container/AccountContainer";
 
 function CreateButton(props) {
+    const { setOpenCreateModal } = useContext(AccountContext);
     return (
         <Container>
             <br />
-            <Button color="primary">Create New Account</Button>
+            <Button color="primary" onClick={() => setOpenCreateModal(true)}>Create New Account</Button>
         </Container>
     );
 }
