@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { AccountContext } from "../../../Container/AccountContainer";
-import { generateId } from "../../../Utils/Hepers/generateId";
 import { getNowDate } from "../../../Utils/Hepers/getNowDate";
 
 function InputForm(props) {
@@ -23,9 +22,10 @@ function InputForm(props) {
             position: postionRef.current.value,
             createDate: getNowDate()
         };
+
         if (!currentInputFormData?.id) {
             const data = {
-                id: generateId(),
+                // id: generateId(),
                 ...formData
             };
             onHandleCreateNewAccount(data);

@@ -9,13 +9,14 @@ function ModalCreateNewAccount(props) {
     const handleCloseModal = () => {
         setOpenCreateModal(false);
         setCurrentInputFormData({});
-    }
+    };
+
     return (
         <Container>
             <br />
             <Modal isOpen={isOpenCreateModal}>
                 <ModalHeader>
-                    <h3>{!currentInputFormData.id ? 'Create New Account' : `Edit Account ${currentInputFormData.id}`}</h3>
+                    <h3>{!currentInputFormData?.id ? 'Create New Account' : `Edit Account Id${currentInputFormData.id}`}</h3>
                 </ModalHeader>
                 <ModalBody>
                     <InputForm />
