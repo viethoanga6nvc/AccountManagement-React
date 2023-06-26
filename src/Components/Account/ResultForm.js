@@ -1,12 +1,14 @@
 import React from "react";
 import { Table, Container } from "reactstrap";
 import ResultFormItem from "./ResultFormItem";
+import { useSelector } from "react-redux";
 
 function ResultForm(props) {
+    const mess = useSelector((state) => state.message);
     return (
         <Container>
             <br />
-            <h3>Danh sách Account</h3>
+            <h3>Danh sách Account {mess}</h3>
             <Table hover>
                 <thead>
                     <tr>

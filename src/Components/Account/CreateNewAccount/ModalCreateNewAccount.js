@@ -1,22 +1,23 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, } from "reactstrap";
 import InputForm from "./InputForm";
-import { AccountContext } from "../../../Container/AccountContainer";
+import { useDispatch, useSelector } from "react-redux";
+import ACCOUNT from "../../../Redux/Actions/AccountAction";
 
 
 function ModalCreateNewAccount(props) {
-    const { isOpenCreateModal, setOpenCreateModal, currentInputFormData, setCurrentInputFormData } = useContext(AccountContext);
+    const { isOpenModal, currentFormData } = useSelector((state) => state.account);
+    const dispatch = useDispatch();
     const handleCloseModal = () => {
-        setOpenCreateModal(false);
-        setCurrentInputFormData({});
+        dispatch({ type: ACCOUNT.SET_MODAL, payload: false })
     };
 
     return (
         <Container>
             <br />
-            <Modal isOpen={isOpenCreateModal}>
+            <Modal isOpen={isOpenModal}>
                 <ModalHeader>
-                    <h3>{!currentInputFormData?.id ? 'Create New Account' : `Edit Account Id${currentInputFormData.id}`}</h3>
+                    <h3>{!currentFormData?.id ? 'Create New Account' : `Edit Account Id${currentFormData.id}`}</h3>
                 </ModalHeader>
                 <ModalBody>
                     <InputForm />

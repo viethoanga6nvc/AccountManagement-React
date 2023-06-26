@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { AccountContext } from "../../../Container/AccountContainer";
 import { getNowDate } from "../../../Utils/Hepers/getNowDate";
+import { useDispatch, useSelector } from "react-redux";
+import { createAccount, updateAccount } from "../../../Redux/Actions/AccountAction";
 
 function InputForm(props) {
-    const { onHandleCreateNewAccount, onHandleEditAccount, currentInputFormData } = useContext(AccountContext);
+    const { currentFormData } = useSelector((state) => state.account);
+    const dispatch = useDispatch();
 
     const emailRef = React.createRef();
     const usernameRef = React.createRef();
@@ -23,18 +25,17 @@ function InputForm(props) {
             createDate: getNowDate()
         };
 
-        if (!currentInputFormData?.id) {
+        if (!currentFormData?.id) {
             const data = {
-                // id: generateId(),
                 ...formData
             };
-            onHandleCreateNewAccount(data);
+            dispatch(createAccount(data));
         } else {
             const newData = {
-                id: currentInputFormData.id,
+                id: currentFormData.id,
                 ...formData
             };
-            onHandleEditAccount(newData);
+            dispatch(updateAccount(newData));
         }
     };
 
@@ -50,7 +51,7 @@ function InputForm(props) {
                         placeholder="Input Email"
                         type="email"
                         innerRef={emailRef}
-                        defaultValue={currentInputFormData?.email}
+                        defaultValue={currentFormData?.email}
                     />
                 </FormGroup>
 
@@ -63,7 +64,7 @@ function InputForm(props) {
                         placeholder="Input Username"
                         type="text"
                         innerRef={usernameRef}
-                        defaultValue={currentInputFormData?.userName}
+                        defaultValue={currentFormData?.userName}
                     />
                 </FormGroup>
 
@@ -76,14 +77,14 @@ function InputForm(props) {
                         placeholder="Input Fullname"
                         type="text"
                         innerRef={fullnameRef}
-                        defaultValue={currentInputFormData?.fullName}
+                        defaultValue={currentFormData?.fullName}
                     />
                 </FormGroup>
 
                 {/* Department */}
                 <FormGroup>
                     <Label for="Department">Select a Department: </Label>
-                    <Input id="Department" name="Department" type="select" innerRef={departmentRef} defaultValue={currentInputFormData?.department}>
+                    <Input id="Department" name="Department" type="select" innerRef={departmentRef} defaultValue={currentFormData?.department}>
                         <option value={"Bán hàng"}>Bán hàng</option>
                         <option value={"Bảo vệ"}>Bảo vệ</option>
                         <option value={"Giám đốc"}>Giám đốc</option>
@@ -95,7 +96,7 @@ function InputForm(props) {
                 {/* Postion */}
                 <FormGroup>
                     <Label for="Postion">Select a Postion: </Label>
-                    <Input id="Postion" name="Postion" type="select" innerRef={postionRef} defaultValue={currentInputFormData?.position}>
+                    <Input id="Postion" name="Postion" type="select" innerRef={postionRef} defaultValue={currentFormData?.position}>
                         <option value={"Dev"}>Dev</option>
                         <option value={"Test"}>Test</option>
                         <option value={"Scrum_Master"}>Scrum_Master</option>
@@ -103,7 +104,7 @@ function InputForm(props) {
                     </Input>
                 </FormGroup>
                 {/* Nút xử lý */}
-                <Button type="submit" color="primary">{!currentInputFormData?.id ? 'Create' : 'Update'}</Button>
+                <Button type="submit" color="primary">{!currentFormData?.id ? 'Create' : 'Update'}</Button>
                 <Button type="reset" color="danger">Reset</Button>
             </Form>
         </Container>

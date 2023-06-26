@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button } from "reactstrap";
-import { AccountContext } from "../../Container/AccountContainer";
+import { useDispatch, useSelector } from "react-redux";
+import ACCOUNT, { deleteAccount, setCurrentFormData } from "../../Redux/Actions/AccountAction";
 
 function ResultFormItem(props) {
-    const { listAccount, setOpenCreateModal, setCurrentInputFormData, onHandleDeleteAccount } = useContext(AccountContext);
+    const { data } = useSelector((state) => state.account);
+    const dispatch = useDispatch();
 
     const handleEditAccount = () => {
-        const currentData = listAccount.find((account) => account.id === props.id);
-        setCurrentInputFormData(currentData);
-        setOpenCreateModal(true);
+        const currentData = data.find((account) => account.id === props.id);
+        dispatch({ type: ACCOUNT.SET_MODAL, payload: true });
+        dispatch(setCurrentFormData(currentData));
     }
     return (
         <tr>
@@ -23,7 +25,7 @@ function ResultFormItem(props) {
                 <Button color="warning" onClick={handleEditAccount}>Edit</Button>
             </td>
             <td>
-                <Button color="warning" onClick={() => onHandleDeleteAccount(props.id)}>Delete</Button>
+                <Button color="warning" onClick={() => dispatch(deleteAccount(props.id))}>Delete</Button>
             </td>
         </tr>
     );

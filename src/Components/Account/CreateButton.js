@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Container, Button } from "reactstrap";
-import { AccountContext } from "../../Container/AccountContainer";
+import { useDispatch } from "react-redux";
+import ACCOUNT from "../../Redux/Actions/AccountAction";
 
 function CreateButton(props) {
-    const { setOpenCreateModal } = useContext(AccountContext);
+    const dispatch = useDispatch();
     return (
         <Container>
             <br />
-            <Button color="primary" onClick={() => setOpenCreateModal(true)}>Create New Account</Button>
+            <Button color="primary" onClick={() => dispatch({ type: ACCOUNT.SET_MODAL, payload: true })}>Create New Account</Button>
         </Container>
     );
 }
