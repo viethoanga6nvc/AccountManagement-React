@@ -7,25 +7,24 @@ import ModalCreateNewAccount from "../Components/Account/CreateNewAccount/ModalC
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAccountData } from "../Redux/Actions/AccountAction";
 
-
 function AccountContainer(props) {
-    const { data } = useSelector((state) => state.account);
-    const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.account);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchAccountData());
-    }, []);
+  useEffect(() => {
+    dispatch(fetchAccountData());
+  }, []);
 
-    return (
-        <Container>
-            {/* Nút thêm mới */}
-            <CreateButton />
-            {/* Form thêm mới */}
-            <ModalCreateNewAccount />
-            {/* Form kết quả */}
-            <ResultForm data={data} />
-        </Container>
-    );
+  return (
+    <Container>
+      {/* Nút thêm mới */}
+      <CreateButton />
+      {/* Form thêm mới */}
+      <ModalCreateNewAccount />
+      {/* Form kết quả */}
+      <ResultForm data={data} />
+    </Container>
+  );
 }
 
 export default AccountContainer;
